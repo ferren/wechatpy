@@ -274,6 +274,18 @@ class TaskCardClickEvent(events.BaseEvent):
     agent = IntegerField("AgentID", 0)
     task_id = StringField("TaskId")
 
+@register_event("change_contact")
+class ChangeContactEvent(events.BaseEvent):
+    """
+    成员变更通知
+
+    详情请参阅
+    https://work.weixin.qq.com/api/doc/90000/90135/90970
+    """
+
+    event = "change_contact"
+    change_type = StringField("ChangeType")
+    user_id = StringField("UserID")
 
 @register_event("change_external_contact")
 class ChangeExternalContactEvent(events.BaseEvent):
