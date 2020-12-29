@@ -286,6 +286,7 @@ class ChangeContactEvent(events.BaseEvent):
     event = "change_contact"
     change_type = StringField("ChangeType")
     user_id = StringField("UserID")
+    department_id = IntegerField("Id", 0)
 
 @register_event("change_external_contact")
 class ChangeExternalContactEvent(events.BaseEvent):
