@@ -575,7 +575,7 @@ class WeChatMessage(BaseWeChatAPI):
         发送模板消息
 
         详情请参考
-        https://mp.weixin.qq.com/wiki?id=mp1445241432&lang=zh_CN
+        https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Template_Message_Interface.html#5
 
         :param user_id: 用户 ID 。 就是你收到的 `Message` 的 source
         :param template_id: 模板 ID。在公众平台线上模板库中选用模板获得
@@ -710,6 +710,23 @@ class WeChatMessage(BaseWeChatAPI):
             "message/template/subscribe",
             data=post_data,
         )
+
+    def send_subscribe_message(self, openid, template_id, data, miniprogram=None, page=None):
+        """
+        发送服务号订阅消息
+        详情请参考
+        https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html#send%E5%8F%91%E9%80%81%E8%AE%A2%E9%98%85%E9%80%9A%E7%9F%A5
+
+        备注：page 和 miniprogram 同时不填，无跳转；page 和 miniprogram 同时填写，优先跳转小程序
+        """
+        post_data = optionaldict(
+            touser=openid,
+            template_id=template_id,
+            data=data,
+            page=page,
+            miniprogram=miniprogram,
+        )
+        return self._post("message/subscribe/bizsend", data=post_data)
 
     def send_msg_menu(self, openid, msgmenu, account=None):
         """
